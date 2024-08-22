@@ -6,9 +6,17 @@ if ($host.Name -eq 'ConsoleHost')
     Import-Module PSReadLine
 }
 
+if(-not (Get-Module -ListAvailable -Name Terminal-Icons))
+{
+  Install-Module -Name Terminal-Icons -Force -Scope CurrentUser
+  Import-Module -Name Terminal-Icons
+}
 
-Import-Module -Name Terminal-Icons
-Import-Module posh-git
+if(-not (Get-Module -ListAvailable -Name posh-git))
+{
+  Install-Module -Name posh-git -Force -Scope CurrentUser
+  Import-Module posh-git
+}
 set-alias desktop "Desktop.ps1"
 
 $theme = Get-ChildItem $env:POSH_THEMES_PATH | Get-Random
@@ -711,3 +719,8 @@ function which ($command) {
 
 #Invoke-Expression (& { (lua $env:HOMEDRIVE$env:HOMEPATH\z.lua\z.lua --init powershell) -join "`n" })
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
+#f45873b3-b655-43a6-b217-97c00aa0db58 PowerToys CommandNotFound module
+
+Import-Module -Name Microsoft.WinGet.CommandNotFound
+#f45873b3-b655-43a6-b217-97c00aa0db58
