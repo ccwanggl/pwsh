@@ -17,6 +17,7 @@ if(-not (Get-Module -ListAvailable -Name posh-git))
   Install-Module -Name posh-git -Force -Scope CurrentUser
   Import-Module posh-git
 }
+
 set-alias desktop "Desktop.ps1"
 
 $theme = Get-ChildItem $env:POSH_THEMES_PATH | Get-Random
@@ -702,7 +703,11 @@ Set-PSReadLineKeyHandler -Key Ctrl+Shift+t `
     [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
 }
 
-Import-Module PSFzf
+if(-not (Get-Module -ListAvailable -Name PSFzf))
+{
+  Install-Module -Name PSFzf -Force -Scope CurrentUser
+  Import-Module PSFzf
+}
 
 # Override PSReadLine's history search
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' `
